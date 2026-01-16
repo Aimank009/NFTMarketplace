@@ -186,4 +186,35 @@ contract MarketPlace is
             listing.isActive
         );
     }
+
+    function setMarketplaceFee(uint256 _newFee) external onlyOwner {
+        if (_newFee > MAX_FEE) revert FeeTooHigh();
+
+        uint256 oldFee = marketPlaceFee;
+
+        marketPlaceFee = _newFee;
+
+        emit MarketplaceFeeUpdated(oldFee, _newFee);
+    }
+
+    function withdrawFee() external onlyOwner nonReentrant {
+        uint256 amount = accumulatedFees;
+        if (amount == 0) revert NoFeesToWithdraw();
+
+        accumulatedFees = 0;
+
+        (bool success, ) = payable(owner()).call{value: amount}("");
+        if (!success) revert TransferFailed();
+
+        emit FeesWithdrawn(owner(), amount);
+    }
+
+    function onERC721Received(
+        address,
+        address,
+        uint256,
+        bytes calldata
+    ) external pure override returns (bytes4) {
+        return IERC721Receiver.onERC721Received.selector;
+    }
 }
