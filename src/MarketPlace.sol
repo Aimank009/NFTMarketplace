@@ -126,4 +126,64 @@ contract MarketPlace is
             fee
         );
     }
+
+    function cancelListing(uint256 _listingId) external override {
+        Listing storage listing = listings[_listingId];
+
+        if (!listing.isActive) revert ListingNotActive();
+
+        if (listing.seller != msg.sender) revert NotTheSeller();
+
+        listing.isActive = false;
+
+        getListingId[listing.nftContract][listing.tokenId] = 0;
+
+        IERC721(listing.nftContract).safeTransferFrom(
+            address(this),
+            msg.sender,
+            listing.tokenId
+        );
+
+        emit ListingCancelled(
+            _listingId,
+            msg.sender,
+            listing.nftContract,
+            listing.tokenId
+        );
+    }
+
+    function updatePrice(
+        uint256 _listingId,
+        uint256 _newPrice
+    ) external override {
+        Listing storage listing = listings[_listingId];
+        if (!listing.isActive) revert ListingNotActive();
+        if (listing.seller != msg.sender) revert NotTheSeller();
+        if (_newPrice == 0) revert PriceMustBeGreaterThanZero();
+
+        uint256 oldPrice = listing.price;
+
+        listing.price = _newPrice;
+
+        emit PriceUpdated(_listingId, oldPrice, listing.price);
+    }
+
+    function getListing(
+        uint256 _listingId
+    )
+        external
+        view
+        override
+        returns (address, address, uint256, uint256, bool)
+    {
+        Listing memory listing = listings[_listingId];
+
+        return (
+            listing.seller,
+            listing.nftContract,
+            listing.tokenId,
+            listing.price,
+            listing.isActive
+        );
+    }
 }
