@@ -1,8 +1,8 @@
-# 🏪 NFT Marketplace
+# NFT Marketplace
 
 A decentralized NFT marketplace smart contract built with Solidity and Foundry. This marketplace enables users to list, buy, and trade ERC721 NFTs with built-in escrow functionality and marketplace fees.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
@@ -14,7 +14,7 @@ A decentralized NFT marketplace smart contract built with Solidity and Foundry. 
 - [Security](#security)
 - [License](#license)
 
-## 🔍 Overview
+## Overview
 
 This NFT Marketplace implements a trustless trading platform where:
 
@@ -26,25 +26,28 @@ This NFT Marketplace implements a trustless trading platform where:
 ### How It Works
 
 ```
-1. Seller approves marketplace → 2. Seller lists NFT → 3. NFT held in escrow
-                                                              ↓
-4. Buyer pays ETH → 5. NFT transferred to buyer → 6. ETH (minus fee) sent to seller
+1. Seller approves marketplace
+2. Seller lists NFT
+3. NFT held in escrow
+4. Buyer pays ETH
+5. NFT transferred to buyer
+6. ETH (minus fee) sent to seller
 ```
 
-## ✨ Features
+## Features
 
-| Feature                   | Description                                       |
-| ------------------------- | ------------------------------------------------- |
-| **List NFTs**             | Sellers can list any ERC721 NFT at a custom price |
-| **Buy NFTs**              | Buyers purchase with ETH, automatic fee deduction |
-| **Cancel Listings**       | Sellers can cancel and retrieve their NFTs        |
-| **Update Price**          | Sellers can modify listing prices                 |
-| **Escrow Pattern**        | NFTs held securely in contract until sold         |
-| **Marketplace Fees**      | Configurable fee (max 10%) on sales               |
-| **Fee Withdrawal**        | Owner can withdraw accumulated fees               |
-| **Reentrancy Protection** | Secured against reentrancy attacks                |
+| Feature               | Description                                       |
+| --------------------- | ------------------------------------------------- |
+| List NFTs             | Sellers can list any ERC721 NFT at a custom price |
+| Buy NFTs              | Buyers purchase with ETH, automatic fee deduction |
+| Cancel Listings       | Sellers can cancel and retrieve their NFTs        |
+| Update Price          | Sellers can modify listing prices                 |
+| Escrow Pattern        | NFTs held securely in contract until sold         |
+| Marketplace Fees      | Configurable fee (max 10%) on sales               |
+| Fee Withdrawal        | Owner can withdraw accumulated fees               |
+| Reentrancy Protection | Secured against reentrancy attacks                |
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 src/
@@ -69,7 +72,7 @@ MarketPlace
 └── MarketPlaceEvents   (Events)
 ```
 
-## 📜 Smart Contract Functions
+## Smart Contract Functions
 
 ### Core Functions
 
@@ -98,7 +101,7 @@ MarketPlace
 | `accumulatedFees()`                  | Total fees available for withdrawal                            |
 | `MAX_FEE()`                          | Maximum allowed fee (1000 = 10%)                               |
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 
@@ -119,7 +122,7 @@ forge install
 forge build
 ```
 
-## 💻 Usage
+## Usage
 
 ### Listing an NFT
 
@@ -156,7 +159,7 @@ marketplace.cancelListing(listingId);
 marketplace.updatePrice(listingId, 2 ether);
 ```
 
-## 🧪 Testing
+## Testing
 
 Run the complete test suite:
 
@@ -186,7 +189,7 @@ forge test --gas-report
 | ERC721 Receiver | 1 test       |
 | **Total**       | **17 tests** |
 
-## 🔒 Security
+## Security
 
 ### Security Features
 
@@ -212,7 +215,7 @@ error NoFeesToWithdraw();
 error TransferFailed();
 ```
 
-## 📊 Fee Structure
+## Fee Structure
 
 - **Default Fee**: 250 basis points (2.5%)
 - **Maximum Fee**: 1000 basis points (10%)
@@ -226,7 +229,7 @@ Fee (2.5%): 0.025 ETH
 Seller Receives: 0.975 ETH
 ```
 
-## 🔗 Events
+## Events
 
 | Event                   | When Emitted           |
 | ----------------------- | ---------------------- |
@@ -237,10 +240,10 @@ Seller Receives: 0.975 ETH
 | `MarketplaceFeeUpdated` | Fee percentage changes |
 | `FeesWithdrawn`         | Owner withdraws fees   |
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
 
 ---
 
-**Built with ❤️ using Solidity and Foundry**
+Built with Solidity and Foundry
